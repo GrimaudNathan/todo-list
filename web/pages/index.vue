@@ -53,7 +53,7 @@
                 Created at {{ task.createdAt | timeFormat }}
               </div>
               <div class="mt-2.5 md:mt-0 text-gray-500 text-xs font-bold">
-                Updated at {{ task.createdAt | timeFormat }}
+                Updated at {{ task.updatedAt | timeFormat }}
               </div>
             </div>
           </div>

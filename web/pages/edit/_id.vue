@@ -92,7 +92,7 @@ export default {
         alert('Please fill title, description and status')
         return
       }
-      const date = new Date(this.date).toISOString().replace('Z', '')
+      const date = new Date(this.date).toISOString()
       const [err] = await this.$api.tasks.update(this.$route.params.id, {
         title: this.title,
         description: this.description,
