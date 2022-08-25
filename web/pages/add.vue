@@ -80,7 +80,7 @@ export default {
         alert('Please fill title, description and status')
         return
       }
-      const date = new Date(this.date).toISOString().replace('Z', '')
+      const date = new Date(this.date).toISOString()
       const [err] = await this.$api.tasks.create({
         title: this.title,
         description: this.description,
