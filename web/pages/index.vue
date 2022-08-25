@@ -1,5 +1,5 @@
 <template>
-  <div class="py-10 container mx-auto">
+  <div class="px-4 md:px-0 py-10 container mx-auto">
     <div class="py-5 flex justify-between items-center border-b border-gray-200">
       <div class="text-gray-700 font-medium text-lg">
         My tasks
@@ -15,43 +15,45 @@
       </p>
       <div v-else class="rounded-xl overflow-hidden shadow">
         <div v-for="(task, index) in tasks" :key="index" :class="[index < tasks.length - 1 ? 'border-b border-gray-200' : '', 'px-6 py-4 bg-white flex justify-between']">
-          <div class="space-y-2.5">
-            <div class="flex space-x-2.5 font-medium">
-              <div v-if="task.status.value === 'DONE'" class="px-2.5 py-0.5 bg-green-100 text-green-800 text-xs rounded-xl">
-                {{ task.status.label }}
+          <div class="space-y-2.5 w-full">
+            <div class="flex justify-between items-center space-x-2.5">
+              <div class="flex space-x-2.5 font-medium truncate">
+                <div v-if="task.status.value === 'DONE'" class="px-2.5 py-0.5 bg-green-100 text-green-800 text-xs rounded-xl">
+                  {{ task.status.label }}
+                </div>
+                <div v-if="task.status.value === 'TODO'" class="px-2.5 py-0.5 bg-red-100 text-red-800 text-xs rounded-xl">
+                  {{ task.status.label }}
+                </div>
+                <div class="text-indigo-600 text-sm truncate">
+                  {{ task.title }}
+                </div>
               </div>
-              <div v-if="task.status.value === 'TODO'" class="px-2.5 py-0.5 bg-red-100 text-red-800 text-xs rounded-xl">
-                {{ task.status.label }}
-              </div>
-              <div class="text-indigo-600 text-sm">
-                {{ task.title }}
+              <div class="flex space-x-2">
+                <NuxtLink :to="`/edit/${task.id}`">
+                  <div class="w-5 h-5 bg-indigo-600 rounded-sm flex justify-center items-center">
+                    <SvgIcon name="icons/pencil" class="w-4 h-4 text-white" />
+                  </div>
+                </NuxtLink>
+                <div class="cursor-pointer w-5 h-5 bg-red-600 rounded-sm flex justify-center items-center" @click="remove(task.id)">
+                  <SvgIcon name="icons/trash" class="w-4 h-4 text-white" />
+                </div>
               </div>
             </div>
-            <div class="text-gray-500" v-html="task.description" />
-            <div class="flex space-x-2">
+            <div class="flex flex-col-reverse md:flex-row md:justify-between md:items-center">
+              <div class="text-gray-500" v-html="task.description" />
+              <div v-if="task.date" class="mb-2.5 md:mb-0 flex items-center space-x-2">
+                <SvgIcon name="icons/calendar" class="h-4 w-4 text-gray-400" />
+                <div class="text-gray-500 text-sm">
+                  {{ task.date | dateFormat }}
+                </div>
+              </div>
+            </div>
+            <div class="md:flex md:space-x-2">
               <div class="text-gray-500 text-xs">
                 Created at {{ task.createdAt | timeFormat }}
               </div>
-              <div class="text-gray-500 text-xs font-bold">
+              <div class="mt-2.5 md:mt-0 text-gray-500 text-xs font-bold">
                 Updated at {{ task.createdAt | timeFormat }}
-              </div>
-            </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex justify-end space-x-2">
-              <NuxtLink :to="`/edit/${task.id}`">
-                <div class="w-5 h-5 bg-indigo-600 rounded-sm flex justify-center items-center">
-                  <SvgIcon name="icons/pencil" class="w-4 h-4 text-white" />
-                </div>
-              </NuxtLink>
-              <div class="cursor-pointer w-5 h-5 bg-red-600 rounded-sm flex justify-center items-center" @click="remove(task.id)">
-                <SvgIcon name="icons/trash" class="w-4 h-4 text-white" />
-              </div>
-            </div>
-            <div v-if="task.date" class="flex items-center space-x-2">
-              <SvgIcon name="icons/calendar" class="h-4 w-4 text-gray-400" />
-              <div class="text-gray-500 text-sm">
-                {{ task.date | dateFormat }}
               </div>
             </div>
           </div>

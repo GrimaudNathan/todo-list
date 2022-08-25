@@ -1,5 +1,5 @@
 <template>
-  <div class="py-10 max-w-xl mx-auto">
+  <div class="px-4 md:px-0 py-10 max-w-xl mx-auto">
     <div class="flex justify-center">
       <SvgIcon name="icons/plus-circle" class="h-12 w-12" />
     </div>
